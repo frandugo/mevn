@@ -1,7 +1,10 @@
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const app = express();
+
+const itemRoutes = require('./routes/item');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -18,7 +21,7 @@ app.use(bodyParser.json());
 
 // routes
 
-
+app.use('/item', itemRoutes);
 
 // static files 
 
