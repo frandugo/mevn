@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 
 const itemRoutes = require('./routes/item');
+const productRoutes = require('./routes/products');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 // routes
 
 app.use('/item', itemRoutes);
+app.use('/product', productRoutes);
 
 // static files 
 
