@@ -1,37 +1,36 @@
-const path = require('path');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const express = require('express');
-const app = express();
+const path = require('path');
+const morgan = require('morgan');
+  bodyParser = require('body-parser'),
+  cors = require('cors'),
+  mongoose = require('mongoose'),
+  { DB } = require('./config/DB'),
+  itemRoutes = require('./routes/item'),
+  articleRoutes = require('./routes/article');
+  locationRoutes = require('./routes/location');
 
-const itemRoutes = require('./routes/item');
-const productRoutes = require('./routes/products');
-
-const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/mevn-stack', {
-	useMongoClient: true
-}).then(() => console.log('db connected'))
-  .catch(err => console.log('err'));
+mongoose.connect( DB, { useMongoClient: true })
+  .then(() => console.log('Mongo is conencted'))
+  .catch(err => console.error(err));
 
-app.set('port', process.env.PORT || 3000 );
+const app = express();
+var port = process.env.PORT || 4000;
 
 // middlewares
-app.use(cors());
 app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cors());
 
 // routes
+app.use('/items', itemRoutes);
+app.use('/articles', articleRoutes);
+app.use('/locations', locationRoutes);
 
-app.use('/item', itemRoutes);
-app.use('/product', productRoutes);
-
-// static files 
-
+// static file
 app.use(express.static(path.join(__dirname, 'public')));
 
-// server 
-
-
-app.listen(app.get('port'), () => {
-	console.log('Server on port', app.get('port'));
+// start the server
+var server = app.listen(port, function(){
+  console.log('Listening on port ' + port);
 });
