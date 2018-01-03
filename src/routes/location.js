@@ -22,7 +22,10 @@ locationRoutes.route('/').get(function (req, res) {
       console.log(err);
     }
     else {
-      res.json(locations);
+      //res.json(locations);
+      Location.populate(locations, {path: "article"},function(err, locations){
+        res.status(200).send(locations);
+      });
     }
   });
 });
