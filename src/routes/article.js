@@ -27,11 +27,11 @@ articleRoutes.route('/').get(function (req, res) {
   });
 });
 
-// Defined edit route
-articleRoutes.route('/edit/:id').get(function (req, res) {
+// Get locations rel ------  ----------------------------------------------------------------------
+articleRoutes.route('locations/:id').get(function (req, res) {
   var id = req.params.id;
-  Article.findById(id, function (err, article){
-      res.json(article);
+  Location.findById(id, function (err, location){
+      res.json(location);
   });
 });
 

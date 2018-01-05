@@ -31,12 +31,12 @@ locationRoutes.route('/').get(function (req, res) {
 });
 
 // Defined edit route
-locationRoutes.route('/edit/:id').get(function (req, res) {
-  var id = req.params.id;
-  Location.findById(id, function (err, location){
-      res.json(location);
-  });
-});
+// locationRoutes.route('/edit/:id').get(function (req, res) {
+//   var id = req.params.id;
+//   Location.findById(id, function (err, location){
+//       res.json(location);
+//   });
+// });
 
 //  Defined update route
 locationRoutes.route('/update/:id').post(function (req, res) {
